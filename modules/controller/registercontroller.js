@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const SALT_VA1 = 10;
 //Use promise in moongoose
 
-exports.Promise = Promise;
+mongoose.Promise = Promise;
 
 exports.registerUser = (req, res) => {
 

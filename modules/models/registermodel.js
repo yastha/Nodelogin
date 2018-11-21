@@ -34,8 +34,6 @@ let userSchema = new Schema({
 
 });
 
-
-
 //To use created schema -> convert schema into Model
 let User = mongoose.model('Users', userSchema);
 
