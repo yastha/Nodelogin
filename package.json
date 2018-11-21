@@ -9,8 +9,12 @@
   "author": "Astha",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.1.10",
+    "mongoose": "^5.3.13",
     "mongoose-bcrypt": "^1.6.0"
   }
 }

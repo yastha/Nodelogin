@@ -5,20 +5,20 @@ const Schema = mongoose.Schema;
 let userSchema = new Schema({
     firstName: {
         type: String,
-        index: { unique: true, dropDups: true },
         unique:true
        // required: [true,  'Firstname cannot be left blank']
     },
     lastName: String,
     email :{
-        type: String,
-        index: { unique: true, dropDups: true }
+        type: String
+       
     },
     username:{
           type: String
     },
-    password: String,
-    required: [true,  'Password cannot be left blank'],
+    password:{ type: String,
+    required: [true,  'Password cannot be left blank']
+    },
     updated_at:{
         type:Date,
         default: Date.now
