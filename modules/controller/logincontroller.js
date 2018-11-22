@@ -10,10 +10,7 @@ var signOptions = {
    };
 let privatekey= '1234';
 
-let mockemail = 'admin';
-let mockPassword = 'password'
-
-let token = req.headers['x-access-token'] || req.headers['authorization'];
+// let token = req.headers['x-access-token'] || req.headers['authorization'];
 //To use Promise in Mongoose
 mongoose.Promise = Promise;
 
@@ -24,30 +21,28 @@ exports.loginUser = (req, res) => {
         .then((data) => {
             if (!data) {
                 return res.status(500).send("Couldnot find the data");
+                return res.status(400).json({
+                    code: 400,
+                    status: 'Bad request',
+                    message: 'The user name already exists.',
+                    errMsg: err.toString()});
+            
             } else if(data) {
                 bcrypt.compare(req.body.password, data.password, (err, result) => {
                     if (result == true) {
-                       return res.json({token : jwt.sign({email: data.email,privatekey, _id: user._id}, 'RESTFULAPIs')});
-                        
-                       // config.secret,{
-                        //     expiresIn: '24h'
-                        // },
-                        
-                        // res.json({
-                        //     success: true,
-                        //     message :'Authentication Successfull',
-                        //     token:token
+                        jwt.sign({email: req.body.email}, 'sdfdsf', (err, token) => {
+                            console.log("Token:" + token )
+                        res.json({token:jwt.sign({email: data.email},'RESTFULAPIs')});
+                        });
                     }
                         })
-                    
-                    console.log("Token:" + token )
-                        res.json({token:jwt.sign({email: data.email},'RESTFULAPIs')});
-                        //res.status(200).send("Hello welcome!!");
                     } else {
-                     res.status(500).send('Authentication Failed');
+                    // res.status(500).send('Authentication Failed');
+                     res.status(500).json({
+                        code: 500,
+                        status: 'error',
+                        message: 'Failed to generate the token',
+                        errMsg: err.toString()});
                     }
                 })
             }
-
-       // });
-//};
