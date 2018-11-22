@@ -7,7 +7,7 @@ const SALT_VA1 = 10;
 mongoose.Promise = Promise;
 
    
-exports.registerUser = (req, res) => {
+exports.registerUser = (req, res, next) => {
     if (User.findOne({ email: req.body.email }).then((data) =>{
     
         if (data) {
@@ -16,6 +16,7 @@ exports.registerUser = (req, res) => {
                 status: 'Conflit error',
                 message: 'The user name already exists.',
                 errMsg: err.toString()});
+                n
         }
         else {
             bcrypt.hash(req.body.password, SALT_VA1, (err, hash) => {
@@ -30,13 +31,14 @@ exports.registerUser = (req, res) => {
                     created_at: req.body.created_at,
                     is_deleted: req.body.is_deleted
                 }).then((data) => {
-                    res.json({ message: "You are looged in" });
+                    res.json({ message: "You are loged in" });
                 }).catch((err) => {
-                    return res.status(500).json({
-                        code: 500,
-                        status: 'error',
-                        message: 'Please try again. You cant be registered',
-                        errMsg: err.toString()});
+                    next(err);
+                    //    return res.status(500).json({
+                    //     code: 500,
+                    //     status: 'error',
+                    //     message: 'Please try again. You cant be registered',
+                    //     errMsg: err.toString()});
                 });
         
             });

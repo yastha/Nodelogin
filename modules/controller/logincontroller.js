@@ -14,7 +14,7 @@ let privatekey= '1234';
 //To use Promise in Mongoose
 mongoose.Promise = Promise;
 
-exports.loginUser = (req, res) => {
+exports.loginUser = (req, res, next) => {
 
     //Use express Validator here
     User.findOne({ email: req.body.email })
@@ -44,5 +44,8 @@ exports.loginUser = (req, res) => {
                         message: 'Failed to generate the token',
                         errMsg: err.toString()});
                     }
-                })
+                }).catch(err) => {
+                    next(err);
+                };
             }
+            
