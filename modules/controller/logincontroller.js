@@ -44,8 +44,8 @@ exports.loginUser = (req, res, next) => {
                         message: 'Failed to generate the token',
                         errMsg: err.toString()});
                     }
-                }).catch(err) => {
+                }).catch((err)=> {
                     next(err);
-                };
+                });
             }
             
